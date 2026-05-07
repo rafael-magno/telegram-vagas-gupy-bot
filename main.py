@@ -41,7 +41,7 @@ GAPS_ELIMINATORIOS = [
     "node.js", "node", "sqs", "rabbitmq", "product manager",
     "product owner", "vue.js", "vue js", "salesforce", "sales force", "react", "apex", 
     "kubernetes", "kafka", "dot net", ".net", "ruby", "go", "ruby on rails", "angular", "product designer", 
-    "tester", "quality assurance", "analista de testes", "qa"
+    "tester", "quality assurance", "analista de testes", "qa", "fullstack", "swift", "kotlin",  "maker",  "CRO", "ux designer"
 ]
 
 STACK_AVANCADO = [
@@ -49,7 +49,7 @@ STACK_AVANCADO = [
     "firebase", "crashlytics", "remote config", "firebase performance", "firebase authentication",
     "onesignal", "cloud messaging", "api rest", "apis rest", "rest apis", "restful", "graphql", "dio", "retrofit",
     "flutter_test", "mocktail", "mockito", "tdd", "code coverage", "solid", "design patterns", "mvvm", "ddd",
-    "cross-platform", "cross platform", "android", "ios", "kotlin", "swift",
+    "cross-platform", "cross platform", "android", "ios", 
     "codemagic", "github actions", "bitrise", "fastlane", "gitflow",
     "sqlite", "isar", "hive", "sharedpreferences", "fluttersecurestorage",
     "tech lead", "agile", "scrum", "kanban", "mentoria", "code review", "sênior", "pleno", "SN", "PL"
@@ -541,6 +541,118 @@ def buscar_vagas_inhire(conn, cursor):
         except Exception as e:
             print(f"   ⚠️  Erro ao buscar {empresa_slug}: {e}")
 
+# --- 8. SOLIDES ---
+
+def buscar_vagas_solides(conn, cursor):
+    print("\n🟢 SOLIDES — iniciando varredura...")
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    }
+    url_base = "https://apigw.solides.com.br/jobs/v3/portal-vacancies-new"
+
+    filtros = [
+        {"nome": "FLUTTER · REMOTO", "params": {'title': 'flutter', 'take': 14}},
+        {"nome": "MOBILE · REMOTO",  "params": {'title': 'mobile',  'take': 14}},
+    ]
+
+    for filtro in filtros:
+        print(f"\n   🔎 {filtro['nome']}...")
+        
+        for pagina in range(1, 10):
+            params = filtro['params'].copy()
+            params['page'] = pagina
+            
+            try:
+                resp = requests.get(url_base, headers=headers, params=params, timeout=15)
+                if resp.status_code != 200:
+                    print(f"   🛑 HTTP {resp.status_code}")
+                    break
+                    
+                json_data = resp.json()
+                if not json_data.get('success'):
+                    print("   🛑 Erro na resposta da Solides")
+                    break
+                    
+                dados = json_data.get('data', {})
+                vagas = dados.get('data', [])
+                total_pages = dados.get('totalPages', 1)
+                
+                if not vagas:
+                    print("   🔚 Sem mais vagas.")
+                    break
+                    
+                for vaga in vagas:
+                    titulo = vaga.get('title', 'Título Indisponível')
+                    
+                    # Verificação de modalidade remota (se o filtro exigir)
+                    modelo_api = vaga.get('jobType', '').lower()
+                    if 'remoto' in filtro['nome'].lower() and modelo_api != 'remoto':
+                        continue
+                        
+                    link = vaga.get('redirectLink', '')
+                    if not link:
+                        continue
+                        
+                    bloqueada, motivo = filtros_basicos(titulo)
+                    if bloqueada:
+                        print(f"   {motivo}")
+                        continue
+                        
+                    if ja_enviada(cursor, link):
+                        continue
+                        
+                    empresa = vaga.get('companyName', 'Empresa não informada')
+                    
+                    data_iso = vaga.get('createdAt', '')
+                    if data_iso:
+                        try:
+                            # Tentar extrair "YYYY-MM-DD"
+                            data_pub = datetime.strptime(data_iso[:10], "%Y-%m-%d")
+                            data_f = data_pub.strftime("%d/%m/%Y")
+                        except Exception:
+                            data_f = data_iso
+                    else:
+                        data_f = "Não informado"
+                        
+                    # Tratamento do texto descritivo para enriquecer o match
+                    description_raw = vaga.get('description', '')
+                    if BS4_DISPONIVEL and description_raw:
+                        description_limpa = BeautifulSoup(description_raw, 'html.parser').get_text(separator=' ')
+                    else:
+                        description_limpa = re.sub(r'<[^>]+>', ' ', description_raw)
+                        
+                    texto_para_match = f"{titulo} {description_limpa}"
+                    nivel_match, techs = calcular_match(texto_para_match)
+                    techs_str = " · ".join(t.upper() for t in techs[:4]) if techs else "Verificar descrição"
+                    
+                    cidade_info = vaga.get('city') or {}
+                    estado_info = vaga.get('state') or {}
+                    local = f"{cidade_info.get('name', '')} - {estado_info.get('code', '')}".strip(" -")
+                    if not local:
+                        local = "Brasil"
+                        
+                    modelo = modelo_api.capitalize() if modelo_api else "Não informado"
+                    
+                    mensagem = (
+                        f"🟢 <b>SOLIDES — {filtro['nome']}</b>\n\n"
+                        f"💼 <b>Vaga:</b> {titulo}\n"
+                        f"🏢 <b>Empresa:</b> {empresa}\n"
+                        f"📍 <b>Local:</b> {local}\n"
+                        f"💻 <b>Modelo:</b> {modelo}\n"
+                        f"📅 <b>Data:</b> {data_f}\n"
+                        f"📊 <b>Match:</b> {nivel_match} · <i>{techs_str}</i>\n\n"
+                        f"🔗 <a href='{link}'>Aplicar na Solides</a>"
+                    )
+                    registrar_e_enviar(conn, cursor, link, titulo, empresa, data_f, mensagem, "SOLIDES", nivel_match)
+                    
+                if pagina >= total_pages:
+                    break
+                    
+            except Exception as e:
+                print(f"   ⚠️  Erro: {e}")
+                break
+
 # --- MAIN ---
 
 def main():
@@ -554,6 +666,7 @@ def main():
     buscar_vagas_programathor(conn, cursor)
     buscar_vagas_linkedin(conn, cursor)
     buscar_vagas_inhire(conn, cursor)
+    buscar_vagas_solides(conn, cursor)
 
     conn.close()
     print("\n✅ Varredura completa de todas as fontes!")
