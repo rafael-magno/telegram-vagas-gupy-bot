@@ -21,11 +21,11 @@ Partindo dessa base, evoluí o projeto para atender minha própria realidade com
 ### 🔍 Múltiplas fontes de vagas
 | Fonte | Tipo | Cobertura |
 |---|---|---|
-| 🟣 **Gupy** | API JSON | SP + Remoto |
-| 🔷 **LinkedIn** | API Guest | SP + Remoto |
-| 🟤 **ProgramaThor** | Web Scraping | SP + Remoto |
-| 🟢 **Solides** | API JSON | Remoto |
-| 🟡 **InHire** | Web Scraping | Remoto |
+| 🟣 **Gupy** | API JSON | 100% Remoto |
+| 🔷 **LinkedIn** | API Guest | 100% Remoto |
+| 🟤 **ProgramaThor** | Web Scraping | 100% Remoto |
+| 🟢 **Solides** | API JSON | 100% Remoto |
+| 🟡 **InHire** | API JSON | 100% Remoto |
 
 ### 🎯 Filtros inteligentes baseados em perfil
 - **Senioridade:** o bot agora busca todas as senioridades, focado no nível Sênior (o antigo bloqueio foi removido).
@@ -106,8 +106,8 @@ STACK_AVANCADO = [
     "flutter", "dart", "clean architecture", ...
 ]
 
-# Buscas por cargo e localização
-filtros_de_busca = [
+# Buscas por cargo e localização (configurados internamente em cada função de busca do main.py)
+filtros = [
     {"nome": "FLUTTER · REMOTO", "params": {'workplaceTypes': 'remote', 'jobName': 'flutter', 'limit': 10}},
     ...
 ]
