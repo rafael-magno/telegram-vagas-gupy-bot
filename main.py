@@ -100,7 +100,8 @@ EMPRESAS_INHIRE = [
     'ninecon',
     'jump',
     'via',
-    'contaazul'
+    'contaazul',
+    'semantix'
 ]
 
 # Solides: busca por título.
