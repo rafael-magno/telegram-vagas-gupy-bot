@@ -47,31 +47,51 @@ CHAT_ID = os.getenv("CHAT_ID_GRUPO")
 # Gupy: busca por cargo (jobName) e modalidade (workplaceTypes).
 # workplaceTypes válidos: 'remote' | 'hybrid' | 'on-site'
 FILTROS_GUPY = [
-    {"nome": "FLUTTER · REMOTO", "params": {'workplaceTypes': 'remote', 'jobName': 'flutter', 'limit': 10}},
-    {"nome": "MOBILE · REMOTO",  "params": {'workplaceTypes': 'remote', 'jobName': 'mobile',  'limit': 10}},
+    {"nome": "PHP · REMOTO", "params": {'workplaceTypes': 'remote', 'jobName': 'php', 'limit': 10}},
+    {"nome": "LARAVEL · REMOTO", "params": {'workplaceTypes': 'remote', 'jobName': 'laravel', 'limit': 10}},
+    {"nome": "NODE · REMOTO", "params": {'workplaceTypes': 'remote', 'jobName': 'node', 'limit': 10}},
+    {"nome": "TYPESCRIPT · REMOTO", "params": {'workplaceTypes': 'remote', 'jobName': 'typescript', 'limit': 10}},
+    {"nome": "BACKEND · REMOTO",  "params": {'workplaceTypes': 'remote', 'jobName': 'backend',  'limit': 10}},
+    {"nome": "BACK-END · REMOTO",  "params": {'workplaceTypes': 'remote', 'jobName': 'back-end',  'limit': 10}},
+    {"nome": "FULLSTACK · REMOTO",  "params": {'workplaceTypes': 'remote', 'jobName': 'fullstack',  'limit': 10}},
 ]
 
 # ProgramaThor: busca por termo de texto + filtro de localização.
 # local_filtro válidos: 'remoto' | 'sp'
 FILTROS_PROGRAMATHOR = [
-    {"nome": "FLUTTER · REMOTO", "termo": "flutter", "local_filtro": "remoto"},
-    {"nome": "MOBILE · REMOTO",  "termo": "mobile",  "local_filtro": "remoto"},
+    {"nome": "PHP · REMOTO", "termo": "php", "local_filtro": "remoto"},
+    {"nome": "LARAVEL · REMOTO", "termo": "laravel", "local_filtro": "remoto"},
+    {"nome": "NODE · REMOTO", "termo": "node", "local_filtro": "remoto"},
+    {"nome": "TYPESCRIPT · REMOTO", "termo": "typescript", "local_filtro": "remoto"},
+    {"nome": "BACKEND · REMOTO",  "termo": "backend",  "local_filtro": "remoto"},
+    {"nome": "BACK-END · REMOTO",  "termo": "back-end",  "local_filtro": "remoto"},
+    {"nome": "FULLSTACK · REMOTO",  "termo": "fullstack",  "local_filtro": "remoto"},
 ]
 
 # LinkedIn (API guest): keywords + localização + filtros de data e modalidade.
 # f_WT=2 → remoto | f_TPR=r259200 → últimos 3 dias
 # Para outros países, altere o campo "location".
 FILTROS_LINKEDIN = [
-    {"nome": "FLUTTER · REMOTO", "params": {"keywords": "flutter", "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
-    {"nome": "MOBILE · REMOTO",  "params": {"keywords": "mobile",  "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
+    {"nome": "PHP · REMOTO", "params": {"keywords": "php", "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
+    {"nome": "LARAVEL · REMOTO", "params": {"keywords": "laravel", "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
+    {"nome": "NODE · REMOTO", "params": {"keywords": "node", "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
+    {"nome": "TYPESCRIPT · REMOTO", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
+    {"nome": "BACKEND · REMOTO",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
+    {"nome": "BACK-END · REMOTO",  "params": {"keywords": "back-end",  "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
+    {"nome": "FULLSTACK · REMOTO",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
 ]
 
 # Inhire: busca por termo no título + filtro de localização.
 # local_filtro válidos: 'remoto' | 'presencial'
 # Requer também EMPRESAS_INHIRE abaixo (lista de subdomínios monitorados).
 FILTROS_INHIRE = [
-    {"nome": "FLUTTER · REMOTO", "termo": "flutter", "local_filtro": "remoto"},
-    {"nome": "MOBILE · REMOTO",  "termo": "mobile",  "local_filtro": "remoto"},
+    {"nome": "PHP · REMOTO", "termo": "php", "local_filtro": "remoto"},
+    {"nome": "LARAVEL · REMOTO", "termo": "laravel", "local_filtro": "remoto"},
+    {"nome": "NODE · REMOTO", "termo": "node", "local_filtro": "remoto"},
+    {"nome": "TYPESCRIPT · REMOTO", "termo": "typescript", "local_filtro": "remoto"},
+    {"nome": "BACKEND · REMOTO",  "termo": "backend",  "local_filtro": "remoto"},
+    {"nome": "BACK-END · REMOTO",  "termo": "back-end",  "local_filtro": "remoto"},
+    {"nome": "FULLSTACK · REMOTO",  "termo": "fullstack",  "local_filtro": "remoto"}
 ]
 
 # Inhire — empresas monitoradas.
@@ -107,8 +127,13 @@ EMPRESAS_INHIRE = [
 # Solides: busca por título.
 # 'take' define quantas vagas por página (máx. recomendado: 14).
 FILTROS_SOLIDES = [
-    {"nome": "FLUTTER · REMOTO", "params": {'title': 'flutter', 'take': 14}},
-    {"nome": "MOBILE · REMOTO",  "params": {'title': 'mobile',  'take': 14}},
+    {"nome": "PHP · REMOTO", "params": {'title': 'php', 'take': 14}},
+    {"nome": "BACKEND · REMOTO",  "params": {'title': 'backend',  'take': 14}},
+    {"nome": "LARAVEL · REMOTO",  "params": {'title': 'laravel',  'take': 14}},
+    {"nome": "NODE · REMOTO",  "params": {'title': 'node',  'take': 14}},
+    {"nome": "TYPESCRIPT · REMOTO",  "params": {'title': 'typescript',  'take': 14}},
+    {"nome": "BACK-END · REMOTO",  "params": {'title': 'back-end',  'take': 14}},
+    {"nome": "FULLSTACK · REMOTO",  "params": {'title': 'fullstack',  'take': 14}},
 ]
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -124,22 +149,15 @@ DIAS_BUSCA_SOLIDES = 20  # Solides → padrão: 20 dias
 # Qualquer termo abaixo encontrado no título da vaga a elimina da lista.
 # Use letras minúsculas — a busca é case-insensitive.
 GAPS_ELIMINATORIOS = [
-    "inglês avançado", "inglês fluente", "presencial", "php", "python",
-    "node.js", "node", "sqs", "rabbitmq", "product manager",
-    "product owner", "vue.js", "java", "vue js", "salesforce", "sales force", "react", "apex",
-    "kubernetes", "kafka", "dot net", ".net", "ruby", "go", "ruby on rails", "angular", "product designer",
-    "tester", "quality assurance", "analista de testes", "qa", "fullstack", "maker", "CRO", "ux designer","typescript", "adsales", "marketing",
-    "bi analyst", "offshore", "automation", "cobol", "mainframe", "head of sales", "ai developer", "editor de vídeo"
+    "inglês avançado", "inglês fluente", "presencial", "product manager",
+    "product owner", "salesforce", "sales force", "apex", "product designer",
+    "quality assurance", "analista de testes", "qa", "maker", "CRO", "ux designer", "adsales", "marketing",
+    "bi analyst", "offshore", "cobol", "mainframe", "head of sales", "editor de vídeo"
 ]
 
 # Vagas dessas empresas são ignoradas em todas as fontes.
 # A comparação é parcial e case-insensitive: "hired" também bloqueia "Hired Feed".
 EMPRESAS_IGNORADAS = [
-    "hired",
-    "Hired Feed",
-    "Hire Feed",
-    "Jobgether",
-    "Quik Hire Staffing",
     # Adicione outras empresas que deseja ignorar aqui
 ]
 
@@ -153,17 +171,13 @@ EMPRESAS_IGNORADAS = [
 # Atenção: Gupy, LinkedIn e Inhire analisam apenas o título da vaga.
 # ProgramaThor usa título + tags; Solides usa título + descrição completa.
 MINHA_STACK = [
-    "flutter", "dart", "clean architecture", "bloc", "cubit", "provider", "riverpod",  "mobx",
-    "firebase", "crashlytics", "remote config", "firebase performance", "firebase authentication",
-    "onesignal", "cloud messaging", "api rest", "apis rest", "rest apis", "restful",  "dio", 
-    "flutter_test", "mocktail", "mockito", "tdd", "code coverage", "solid", "design patterns", 
-    "cross-platform", "cross platform", "android", "ios",
-    "codemagic", "github actions",  "fastlane", "gitflow",
-    "sqlite", "isar", "hive", "sharedpreferences", "fluttersecurestorage",
-    "tech lead", "agile", "scrum", "kanban",  "code review", "sênior", "pleno", "SN", "PL",
-    "devsecops", "micro front end", "testes de widget", "widget tests", "integration tests",
-    "offline first", "finops", "ci/cd", "mysql", "banco de dados", "figma", "flutter sdk", "solid", 
-    "modularização", "modular", "bloc_test", "clarity", "app store", "play store", "publicação", "push notifications"
+    "php", "laravel", "node", "nodejs", "typescript", "back-end", "fullstack", "backend",
+    "clean architecture", "api rest", "apis rest", "rest apis", "restful", 
+    "tdd", "code coverage", "design patterns", "github actions", "gitflow", "sqlite",
+    "tech lead", "agile", "scrum", "kanban",  "code review", "sênior",
+    "integration tests", "unit tests", "e2e tests",
+    "ci/cd", "mysql", "mongodb", "aws", "mongo", "banco de dados", "solid", 
+    "modularização", "modular"
 ]
 
 # Set em memória para evitar duplicatas na mesma execução (mesma vaga, fontes/buscas diferentes)
