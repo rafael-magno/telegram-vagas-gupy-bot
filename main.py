@@ -274,6 +274,9 @@ def enviar_telegram(mensagem):
 
 def registrar_e_enviar(conn, cursor, link, titulo, empresa, data_f, mensagem, fonte, nivel_match):
     chave = _chave_sessao(titulo, empresa)
+    if nivel_match == "🔴 Baixo":
+        print(f"   🔁 Nivel baixo: {titulo[:50]}")
+        return
     if chave in _enviados_sessao:
         print(f"   🔁 Duplicata (sessão): {titulo[:50]}")
         return
