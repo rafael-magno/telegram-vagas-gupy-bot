@@ -594,14 +594,19 @@ def buscar_vagas_linkedin(conn, cursor):
                 continue
 
             for card in cards:
-                titulo_el  = card.find(class_=lambda c: c and 'title' in c)
-                empresa_el = card.find(class_=lambda c: c and 'subtitle' in c)
-                link_el    = card.find('a', href=True)
-                data_el    = card.find('time')
+                titulo_el   = card.find(class_=lambda c: c and 'title' in c)
+                empresa_el  = card.find(class_=lambda c: c and 'subtitle' in c)
+                location_el = card.find(class_=lambda c: c and 'location' in c)
+                link_el     = card.find('a', href=True)
+                data_el     = card.find('time')
 
-                titulo  = titulo_el.get_text(strip=True)  if titulo_el  else "Título Indisponível"
-                empresa = empresa_el.get_text(strip=True) if empresa_el else "Empresa não informada"
-                link    = link_el['href'].split('?')[0]   if link_el    else ''
+                titulo   = titulo_el.get_text(strip=True)  if titulo_el  else "Título Indisponível"
+                empresa  = empresa_el.get_text(strip=True) if empresa_el else "Empresa não informada"
+                location = location_el.get_text(strip=True) if location_el else "Local não informado"
+                link     = link_el['href'].split('?')[0]   if link_el    else ''
+
+                if filtro["params"]["f_WT"] == 3 and location not in ["Betim, MG", "Contagem, MG", "Belo Horizonte, MG"]:
+                    continue
 
                 if not link:
                     continue
