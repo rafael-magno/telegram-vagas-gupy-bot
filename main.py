@@ -52,7 +52,6 @@ FILTROS_GUPY = [
     {"nome": "NODE · REMOTO", "params": {'workplaceTypes': 'remote', 'jobName': 'node', 'limit': 10}},
     {"nome": "TYPESCRIPT · REMOTO", "params": {'workplaceTypes': 'remote', 'jobName': 'typescript', 'limit': 10}},
     {"nome": "BACKEND · REMOTO",  "params": {'workplaceTypes': 'remote', 'jobName': 'backend',  'limit': 10}},
-    {"nome": "BACK-END · REMOTO",  "params": {'workplaceTypes': 'remote', 'jobName': 'back-end',  'limit': 10}},
     {"nome": "FULLSTACK · REMOTO",  "params": {'workplaceTypes': 'remote', 'jobName': 'fullstack',  'limit': 10}},
 ]
 
@@ -64,7 +63,6 @@ FILTROS_PROGRAMATHOR = [
     {"nome": "NODE · REMOTO", "termo": "node", "local_filtro": "remoto"},
     {"nome": "TYPESCRIPT · REMOTO", "termo": "typescript", "local_filtro": "remoto"},
     {"nome": "BACKEND · REMOTO",  "termo": "backend",  "local_filtro": "remoto"},
-    {"nome": "BACK-END · REMOTO",  "termo": "back-end",  "local_filtro": "remoto"},
     {"nome": "FULLSTACK · REMOTO",  "termo": "fullstack",  "local_filtro": "remoto"},
 ]
 
@@ -77,7 +75,6 @@ FILTROS_LINKEDIN = [
     {"nome": "NODE · REMOTO", "params": {"keywords": "node", "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
     {"nome": "TYPESCRIPT · REMOTO", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
     {"nome": "BACKEND · REMOTO",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
-    {"nome": "BACK-END · REMOTO",  "params": {"keywords": "back-end",  "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
     {"nome": "FULLSTACK · REMOTO",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
 ]
 
@@ -90,7 +87,6 @@ FILTROS_INHIRE = [
     {"nome": "NODE · REMOTO", "termo": "node", "local_filtro": "remoto"},
     {"nome": "TYPESCRIPT · REMOTO", "termo": "typescript", "local_filtro": "remoto"},
     {"nome": "BACKEND · REMOTO",  "termo": "backend",  "local_filtro": "remoto"},
-    {"nome": "BACK-END · REMOTO",  "termo": "back-end",  "local_filtro": "remoto"},
     {"nome": "FULLSTACK · REMOTO",  "termo": "fullstack",  "local_filtro": "remoto"}
 ]
 
@@ -132,7 +128,6 @@ FILTROS_SOLIDES = [
     {"nome": "LARAVEL · REMOTO",  "params": {'title': 'laravel',  'take': 14}},
     {"nome": "NODE · REMOTO",  "params": {'title': 'node',  'take': 14}},
     {"nome": "TYPESCRIPT · REMOTO",  "params": {'title': 'typescript',  'take': 14}},
-    {"nome": "BACK-END · REMOTO",  "params": {'title': 'back-end',  'take': 14}},
     {"nome": "FULLSTACK · REMOTO",  "params": {'title': 'fullstack',  'take': 14}},
 ]
 
@@ -149,7 +144,7 @@ DIAS_BUSCA_SOLIDES = 20  # Solides → padrão: 20 dias
 # Qualquer termo abaixo encontrado no título da vaga a elimina da lista.
 # Use letras minúsculas — a busca é case-insensitive.
 GAPS_ELIMINATORIOS = [
-    "inglês avançado", "inglês fluente", "presencial", "product manager",
+    "inglês avançado", "inglês fluente", "product manager",
     "product owner", "salesforce", "sales force", "apex", "product designer",
     "quality assurance", "analista de testes", "qa", "maker", "CRO", "ux designer", "adsales", "marketing",
     "bi analyst", "offshore", "cobol", "mainframe", "head of sales", "editor de vídeo"
@@ -274,9 +269,9 @@ def enviar_telegram(mensagem):
 
 def registrar_e_enviar(conn, cursor, link, titulo, empresa, data_f, mensagem, fonte, nivel_match):
     chave = _chave_sessao(titulo, empresa)
-    if nivel_match == "🔴 Baixo":
-        print(f"   🔁 Nivel baixo: {titulo[:50]}")
-        return
+    # if nivel_match == "🔴 Baixo":
+    #     print(f"   🔁 Nivel baixo: {titulo[:50]}")
+    #     return
     if chave in _enviados_sessao:
         print(f"   🔁 Duplicata (sessão): {titulo[:50]}")
         return
