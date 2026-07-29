@@ -5,7 +5,7 @@ import sqlite3
 import requests
 import unicodedata
 import xml.etree.ElementTree as ET
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 try:
     from bs4 import BeautifulSoup
@@ -53,6 +53,24 @@ FILTROS_GUPY = [
     {"nome": "TYPESCRIPT · REMOTO", "params": {'workplaceTypes': 'remote', 'jobName': 'typescript', 'limit': 10}},
     {"nome": "BACKEND · REMOTO",  "params": {'workplaceTypes': 'remote', 'jobName': 'backend',  'limit': 10}},
     {"nome": "FULLSTACK · REMOTO",  "params": {'workplaceTypes': 'remote', 'jobName': 'fullstack',  'limit': 10}},
+    {"nome": "PHP · HIBRIDO · BETIM", "params": {'workplaceTypes': 'hybrid', 'jobName': 'php', 'limit': 10, 'city': 'Betim'}},
+    {"nome": "LARAVEL · HIBRIDO · BETIM", "params": {'workplaceTypes': 'hybrid', 'jobName': 'laravel', 'limit': 10, 'city': 'Betim'}},
+    {"nome": "NODE · HIBRIDO · BETIM", "params": {'workplaceTypes': 'hybrid', 'jobName': 'node', 'limit': 10, 'city': 'Betim'}},
+    {"nome": "TYPESCRIPT · HIBRIDO · BETIM", "params": {'workplaceTypes': 'hybrid', 'jobName': 'typescript', 'limit': 10, 'city': 'Betim'}},
+    {"nome": "BACKEND · HIBRIDO · BETIM",  "params": {'workplaceTypes': 'hybrid', 'jobName': 'backend',  'limit': 10, 'city': 'Betim'}},
+    {"nome": "FULLSTACK · HIBRIDO · BETIM",  "params": {'workplaceTypes': 'hybrid', 'jobName': 'fullstack',  'limit': 10, 'city': 'Betim'}},
+    {"nome": "PHP · HIBRIDO · CONTAGEM", "params": {'workplaceTypes': 'hybrid', 'jobName': 'php', 'limit': 10, 'city': 'Contagem'}},
+    {"nome": "LARAVEL · HIBRIDO · CONTAGEM", "params": {'workplaceTypes': 'hybrid', 'jobName': 'laravel', 'limit': 10, 'city': 'Contagem'}},
+    {"nome": "NODE · HIBRIDO · CONTAGEM", "params": {'workplaceTypes': 'hybrid', 'jobName': 'node', 'limit': 10, 'city': 'Contagem'}},
+    {"nome": "TYPESCRIPT · HIBRIDO · CONTAGEM", "params": {'workplaceTypes': 'hybrid', 'jobName': 'typescript', 'limit': 10, 'city': 'Contagem'}},
+    {"nome": "BACKEND · HIBRIDO · CONTAGEM",  "params": {'workplaceTypes': 'hybrid', 'jobName': 'backend',  'limit': 10, 'city': 'Contagem'}},
+    {"nome": "FULLSTACK · HIBRIDO · CONTAGEM",  "params": {'workplaceTypes': 'hybrid', 'jobName': 'fullstack',  'limit': 10, 'city': 'Contagem'}},
+    {"nome": "PHP · HIBRIDO · BH", "params": {'workplaceTypes': 'hybrid', 'jobName': 'php', 'limit': 10, 'city': 'Belo Horizonte'}},
+    {"nome": "LARAVEL · HIBRIDO · BH", "params": {'workplaceTypes': 'hybrid', 'jobName': 'laravel', 'limit': 10, 'city': 'Belo Horizonte'}},
+    {"nome": "NODE · HIBRIDO · BH", "params": {'workplaceTypes': 'hybrid', 'jobName': 'node', 'limit': 10, 'city': 'Belo Horizonte'}},
+    {"nome": "TYPESCRIPT · HIBRIDO · BH", "params": {'workplaceTypes': 'hybrid', 'jobName': 'typescript', 'limit': 10, 'city': 'Belo Horizonte'}},
+    {"nome": "BACKEND · HIBRIDO · BH",  "params": {'workplaceTypes': 'hybrid', 'jobName': 'backend',  'limit': 10, 'city': 'Belo Horizonte'}},
+    {"nome": "FULLSTACK · HIBRIDO · BH",  "params": {'workplaceTypes': 'hybrid', 'jobName': 'fullstack',  'limit': 10, 'city': 'Belo Horizonte'}},
 ]
 
 # ProgramaThor: busca por termo de texto + filtro de localização.
@@ -66,28 +84,57 @@ FILTROS_PROGRAMATHOR = [
     {"nome": "FULLSTACK · REMOTO",  "termo": "fullstack",  "local_filtro": "remoto"},
 ]
 
+utc_weekday = datetime.now(timezone.utc).weekday()
+utc_hour = datetime.now(timezone.utc).hour
+f_TPR = "r10800"
+
+if utc_weekday in [0,6]:
+    f_TPR = "r21600"
+    if utc_hour == 13:
+        f_TPR = "r54000"
+elif utc_hour == 11:
+    f_TPR = "r46800" 
+
 # LinkedIn (API guest): keywords + localização + filtros de data e modalidade.
 # f_WT=2 → remoto | f_TPR=r259200 → últimos 3 dias
 # Para outros países, altere o campo "location".
 FILTROS_LINKEDIN = [
-    {"nome": "PHP · REMOTO", "params": {"keywords": "php", "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
-    {"nome": "LARAVEL · REMOTO", "params": {"keywords": "laravel", "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
-    {"nome": "NODE · REMOTO", "params": {"keywords": "node", "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
-    {"nome": "TYPESCRIPT · REMOTO", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
-    {"nome": "BACKEND · REMOTO",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
-    {"nome": "FULLSTACK · REMOTO",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": "2", "f_TPR": "r259200", "start": 0}},
+    {"nome": "PHP · REMOTO", "params": {"keywords": "php", "location": "Brazil", "f_WT": 2, "f_TPR": f_TPR, "start": 0}},
+    {"nome": "LARAVEL · REMOTO", "params": {"keywords": "laravel", "location": "Brazil", "f_WT": 2, "f_TPR": f_TPR, "start": 0}},
+    {"nome": "NODE · REMOTO", "params": {"keywords": "node", "location": "Brazil", "f_WT": 2, "f_TPR": f_TPR, "start": 0}},
+    {"nome": "TYPESCRIPT · REMOTO", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": 2, "f_TPR": f_TPR, "start": 0}},
+    {"nome": "BACKEND · REMOTO",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": 2, "f_TPR": f_TPR, "start": 0}},
+    {"nome": "FULLSTACK · REMOTO",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": 2, "f_TPR": f_TPR, "start": 0}},
+    {"nome": "PHP · HIBRIDO · BETIM", "params": {"keywords": "php", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "103760941"}},
+    {"nome": "LARAVEL · HIBRIDO · BETIM", "params": {"keywords": "laravel", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "103760941"}},
+    {"nome": "NODE · HIBRIDO · BETIM", "params": {"keywords": "node", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "103760941"}},
+    {"nome": "TYPESCRIPT · HIBRIDO · BETIM", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "103760941"}},
+    {"nome": "BACKEND · HIBRIDO · BETIM",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "103760941"}},
+    {"nome": "FULLSTACK · HIBRIDO · BETIM",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "103760941"}}, 
+    {"nome": "PHP · HIBRIDO · CONTAGEM", "params": {"keywords": "php", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "100288239"}},
+    {"nome": "LARAVEL · HIBRIDO · CONTAGEM", "params": {"keywords": "laravel", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "100288239"}},
+    {"nome": "NODE · HIBRIDO · CONTAGEM", "params": {"keywords": "node", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "100288239"}},
+    {"nome": "TYPESCRIPT · HIBRIDO · CONTAGEM", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "100288239"}},
+    {"nome": "BACKEND · HIBRIDO · CONTAGEM",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "100288239"}},
+    {"nome": "FULLSTACK · HIBRIDO · CONTAGEM",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "100288239"}},
+    {"nome": "PHP · HIBRIDO · BH", "params": {"keywords": "php", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "105818291"}},
+    {"nome": "LARAVEL · HIBRIDO · BH", "params": {"keywords": "laravel", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "105818291"}},
+    {"nome": "NODE · HIBRIDO · BH", "params": {"keywords": "node", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "105818291"}},
+    {"nome": "TYPESCRIPT · HIBRIDO · BH", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "105818291"}},
+    {"nome": "BACKEND · HIBRIDO · BH",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "105818291"}},
+    {"nome": "FULLSTACK · HIBRIDO · BH",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "105818291"}},
 ]
 
 # Inhire: busca por termo no título + filtro de localização.
 # local_filtro válidos: 'remoto' | 'presencial'
 # Requer também EMPRESAS_INHIRE abaixo (lista de subdomínios monitorados).
 FILTROS_INHIRE = [
-    {"nome": "PHP · REMOTO", "termo": "php", "local_filtro": "remoto"},
-    {"nome": "LARAVEL · REMOTO", "termo": "laravel", "local_filtro": "remoto"},
-    {"nome": "NODE · REMOTO", "termo": "node", "local_filtro": "remoto"},
-    {"nome": "TYPESCRIPT · REMOTO", "termo": "typescript", "local_filtro": "remoto"},
-    {"nome": "BACKEND · REMOTO",  "termo": "backend",  "local_filtro": "remoto"},
-    {"nome": "FULLSTACK · REMOTO",  "termo": "fullstack",  "local_filtro": "remoto"}
+    {"nome": "PHP", "termo": "php"},
+    {"nome": "LARAVEL", "termo": "laravel"},
+    {"nome": "NODE", "termo": "node"},
+    {"nome": "TYPESCRIPT", "termo": "typescript"},
+    {"nome": "BACKEND",  "termo": "backend"},
+    {"nome": "FULLSTACK",  "termo": "fullstack"}
 ]
 
 # Inhire — empresas monitoradas.
@@ -117,18 +164,31 @@ EMPRESAS_INHIRE = [
     'jump',
     'via',
     'contaazul',
-    'semantix'
+    'semantix',
+    'sympla',
+    'magazineluiza',
+    'rarolabs',
+    'skeelo',
+    'kiwify',
+    'qive',
+    'gerdau',
+    "ctctech",
+    "rhitmotech",
+    "atlastechnol",
+    "dqrtech",
+    "mazzatech",
+    "prospertechtalents",
 ]
 
 # Solides: busca por título.
 # 'take' define quantas vagas por página (máx. recomendado: 14).
 FILTROS_SOLIDES = [
-    {"nome": "PHP · REMOTO", "params": {'title': 'php', 'take': 14}},
-    {"nome": "BACKEND · REMOTO",  "params": {'title': 'backend',  'take': 14}},
-    {"nome": "LARAVEL · REMOTO",  "params": {'title': 'laravel',  'take': 14}},
-    {"nome": "NODE · REMOTO",  "params": {'title': 'node',  'take': 14}},
-    {"nome": "TYPESCRIPT · REMOTO",  "params": {'title': 'typescript',  'take': 14}},
-    {"nome": "FULLSTACK · REMOTO",  "params": {'title': 'fullstack',  'take': 14}},
+    {"nome": "PHP", "params": {'title': 'php', 'take': 14}},
+    {"nome": "BACKEND",  "params": {'title': 'backend',  'take': 14}},
+    {"nome": "LARAVEL",  "params": {'title': 'laravel',  'take': 14}},
+    {"nome": "NODE",  "params": {'title': 'node',  'take': 14}},
+    {"nome": "TYPESCRIPT",  "params": {'title': 'typescript',  'take': 14}},
+    {"nome": "FULLSTACK",  "params": {'title': 'fullstack',  'take': 14}},
 ]
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -138,8 +198,8 @@ FILTROS_SOLIDES = [
 # Período máximo de publicação aceito. Vagas mais antigas são ignoradas.
 # Dica: na primeira execução, aumente os valores para preencher o histórico
 # (ex: 30 dias), depois retorne ao padrão.
-DIAS_BUSCA_GUPY    = 3   # Gupy    → padrão: 3 dias
-DIAS_BUSCA_SOLIDES = 20  # Solides → padrão: 20 dias
+DIAS_BUSCA_GUPY    = 2   # Gupy    → padrão: 3 dias
+DIAS_BUSCA_SOLIDES = 2  # Solides → padrão: 20 dias
 
 # Qualquer termo abaixo encontrado no título da vaga a elimina da lista.
 # Use letras minúsculas — a busca é case-insensitive.
@@ -621,7 +681,9 @@ def buscar_vagas_inhire(conn, cursor):
                     modelo_api = job.get('workplaceType', '').lower()
                     modelo = TRADUCAO_MODELO.get(modelo_api, "Não informado")
                     
-                    if filtro['local_filtro'] == 'remoto' and modelo_api != 'remote':
+                    if modelo_api == 'on-site':
+                        continue
+                    if modelo_api == 'hybrid' and job.get('location', '') not in ["Betim, MG, BR", "Contagem, MG, BR", "Belo Horizonte, MG, BR"]:
                         continue
                         
                     job_id = job.get('jobId')
@@ -696,10 +758,13 @@ def buscar_vagas_solides(conn, cursor):
                     
                 for vaga in vagas:
                     titulo = vaga.get('title', 'Título Indisponível')
+                    cidade = vaga.get('city', {}).get('name', '')
                     
                     # Verificação de modalidade remota (se o filtro exigir)
                     modelo_api = vaga.get('jobType', '').lower()
-                    if 'remoto' in filtro['nome'].lower() and modelo_api != 'remoto':
+                    if modelo_api == 'presencial':
+                        continue
+                    if modelo_api == 'hibrido' and cidade not in ["Betim", "Contagem", "Belo Horizonte"]:
                         continue
                         
                     link = vaga.get('redirectLink', '')
