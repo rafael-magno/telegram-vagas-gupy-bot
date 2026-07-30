@@ -105,24 +105,24 @@ FILTROS_LINKEDIN = [
     {"nome": "TYPESCRIPT · REMOTO", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": 2, "f_TPR": f_TPR, "start": 0}},
     {"nome": "BACKEND · REMOTO",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": 2, "f_TPR": f_TPR, "start": 0}},
     {"nome": "FULLSTACK · REMOTO",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": 2, "f_TPR": f_TPR, "start": 0}},
-    {"nome": "PHP · HIBRIDO · BETIM", "params": {"keywords": "php", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "103760941"}},
-    {"nome": "LARAVEL · HIBRIDO · BETIM", "params": {"keywords": "laravel", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "103760941"}},
-    {"nome": "NODE · HIBRIDO · BETIM", "params": {"keywords": "node", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "103760941"}},
-    {"nome": "TYPESCRIPT · HIBRIDO · BETIM", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "103760941"}},
-    {"nome": "BACKEND · HIBRIDO · BETIM",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "103760941"}},
-    {"nome": "FULLSTACK · HIBRIDO · BETIM",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "103760941"}}, 
-    {"nome": "PHP · HIBRIDO · CONTAGEM", "params": {"keywords": "php", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "100288239"}},
-    {"nome": "LARAVEL · HIBRIDO · CONTAGEM", "params": {"keywords": "laravel", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "100288239"}},
-    {"nome": "NODE · HIBRIDO · CONTAGEM", "params": {"keywords": "node", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "100288239"}},
-    {"nome": "TYPESCRIPT · HIBRIDO · CONTAGEM", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "100288239"}},
-    {"nome": "BACKEND · HIBRIDO · CONTAGEM",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "100288239"}},
-    {"nome": "FULLSTACK · HIBRIDO · CONTAGEM",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "100288239"}},
-    {"nome": "PHP · HIBRIDO · BH", "params": {"keywords": "php", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "105818291"}},
-    {"nome": "LARAVEL · HIBRIDO · BH", "params": {"keywords": "laravel", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "105818291"}},
-    {"nome": "NODE · HIBRIDO · BH", "params": {"keywords": "node", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "105818291"}},
-    {"nome": "TYPESCRIPT · HIBRIDO · BH", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "105818291"}},
-    {"nome": "BACKEND · HIBRIDO · BH",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "105818291"}},
-    {"nome": "FULLSTACK · HIBRIDO · BH",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "f_PP": "105818291"}},
+    {"nome": "PHP · HIBRIDO · BETIM", "params": {"keywords": "php", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "103760941"}},
+    {"nome": "LARAVEL · HIBRIDO · BETIM", "params": {"keywords": "laravel", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "103760941"}},
+    {"nome": "NODE · HIBRIDO · BETIM", "params": {"keywords": "node", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "103760941"}},
+    {"nome": "TYPESCRIPT · HIBRIDO · BETIM", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "103760941"}},
+    {"nome": "BACKEND · HIBRIDO · BETIM",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "103760941"}},
+    {"nome": "FULLSTACK · HIBRIDO · BETIM",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "103760941"}},
+    {"nome": "PHP · HIBRIDO · CONTAGEM", "params": {"keywords": "php", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "100288239"}},
+    {"nome": "LARAVEL · HIBRIDO · CONTAGEM", "params": {"keywords": "laravel", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "100288239"}},
+    {"nome": "NODE · HIBRIDO · CONTAGEM", "params": {"keywords": "node", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "100288239"}},
+    {"nome": "TYPESCRIPT · HIBRIDO · CONTAGEM", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "100288239"}},
+    {"nome": "BACKEND · HIBRIDO · CONTAGEM",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "100288239"}},
+    {"nome": "FULLSTACK · HIBRIDO · CONTAGEM",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "100288239"}},
+    {"nome": "PHP · HIBRIDO · BH", "params": {"keywords": "php", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "105818291"}},
+    {"nome": "LARAVEL · HIBRIDO · BH", "params": {"keywords": "laravel", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "105818291"}},
+    {"nome": "NODE · HIBRIDO · BH", "params": {"keywords": "node", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "105818291"}},
+    {"nome": "TYPESCRIPT · HIBRIDO · BH", "params": {"keywords": "typescript", "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "105818291"}},
+    {"nome": "BACKEND · HIBRIDO · BH",  "params": {"keywords": "backend",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "105818291"}},
+    {"nome": "FULLSTACK · HIBRIDO · BH",  "params": {"keywords": "fullstack",  "location": "Brazil", "f_WT": 3, "f_TPR": f_TPR, "start": 0, "geoId": "105818291"}},
 ]
 
 # Inhire: busca por termo no título + filtro de localização.
@@ -605,9 +605,6 @@ def buscar_vagas_linkedin(conn, cursor):
                 location = location_el.get_text(strip=True) if location_el else "Local não informado"
                 link     = link_el['href'].split('?')[0]   if link_el    else ''
 
-                if filtro["params"]["f_WT"] == 3 and location not in ["Betim, MG", "Contagem, MG", "Belo Horizonte, MG"]:
-                    continue
-
                 if not link:
                     continue
 
@@ -634,6 +631,7 @@ def buscar_vagas_linkedin(conn, cursor):
                     f"🔷 <b>LINKEDIN — {filtro['nome']}</b>\n\n"
                     f"💼 <b>Vaga:</b> {titulo}\n"
                     f"🏢 <b>Empresa:</b> {empresa}\n"
+                    f"📍 <b>Local:</b> {location}\n"
                     f"📅 <b>Data:</b> {data_f}\n"
                     f"📊 <b>Match:</b> {nivel_match} · <i>{techs_str}</i>\n\n"
                     f"🔗 <a href='{link}'>Aplicar no LinkedIn</a>"
